@@ -1,0 +1,273 @@
+SELECT SID, SNAME, BNAME, AUTHOR
+FROM STUDENT2 S, LIBRARY1 L
+WHERE S. BOOK_ID = L.BOOK_ID;SELECT SID, SNAME, BNAME, AUTHOR
+FROM STUDENT2 S, LIBRARY1 L
+WHERE S. BOOK_ID = L.BOOK_ID;v12-09-2023
+ SQL> SET LINES 100 PAGES 100
+SQL> CREATE TABLE STUDENT2(
+  2  SID NUMBER(10),
+  3  SNAME VARCHAR(20),
+  4  PER NUMBER(10),
+  5  BRANCH VARCHAR(20),
+  6  BOOK_ID NUMBER(10)
+  7  );
+
+Table created.
+
+SQL> CREATE TABLE LIBRARY1(
+  2  BOOK_ID NUMBER(10),
+  3   BNAME VARCHAR(20),
+  4   AUTHOR VARCHAR(20),
+  5   EDITION NUMBER(10),
+  6   PRICE NUMBER(10)
+  7   );
+
+Table created.
+
+SQL> INSERT INTO STUDENT2 VALUES(1, 'ANAND', 20, 'MECH', 4);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT2 VALUES(2, 'JANARDHAN', 15, 'CS', 3);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT2 VALUES(3, 'ANAND', 35, 'IT', 1);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT2 VALUES(4, 'SATYAM', 70, 'ENTC', 2);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT2 VALUES(5, 'PRAFUL', 10, 'CIVIL', 1);
+
+1 row created.
+
+SQL> DESC STUDENT2;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- -----------------------------
+ SID                                                            NUMBER(10)
+ SNAME                                                          VARCHAR2(20)
+ PER                                                            NUMBER(10)
+ BRANCH                                                         VARCHAR2(20)
+ BOOK_ID                                                        NUMBER(10)
+
+SQL> SELECT * FROM STUDENT2;
+
+       SID SNAME                       PER BRANCH                  BOOK_ID
+---------- -------------------- ---------- -------------------- ----------
+         1 ANAND                        20 MECH                          4
+         2 JANARDHAN                    15 CS                            3
+         3 ANAND                        35 IT                            1
+         4 SATYAM                       70 ENTC                          2
+         5 PRAFUL                       10 CIVIL                         1
+
+SQL> INSERT INTO LIBRARY1(1, 'M1', 'SATYAM', 2022, 150);
+INSERT INTO LIBRARY1(1, 'M1', 'SATYAM', 2022, 150)
+                     *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> INSERT INTO LIBRARY1 VALUES(1, 'M1', 'SATYAM', 2022, 150);
+
+1 row created.
+
+SQL> INSERT INTO LIBRARY1 VALUES(2,'DBMS','ANAND',2021,75);
+
+1 row created.
+
+SQL> INSERT INTO LIBRARY1 VALUES(3,'MECHANICS','JANARDHAN',2019,10);
+
+1 row created.
+
+SQL> INSERT INTO LIBRARY1 VALUES(4,'SOM','PRAFULL',2015,5);
+
+1 row created.
+
+SQL> SELECT * FROM LIBRARY1;
+
+   BOOK_ID BNAME                AUTHOR                  EDITION      PRICE
+---------- -------------------- -------------------- ---------- ----------
+         1 M1                   SATYAM                     2022        150
+         2 DBMS                 ANAND                      2021         75
+         3 MECHANICS            JANARDHAN                  2019         10
+         4 SOM                  PRAFULL                    2015          5
+
+
+Q1. WAQTD STUDENT ID AND STUDENT NAME OF A STUDENT, BOOK NAME AND AUTHOR OF A BOOK TAKEN FROM A LIBRARY.
+
+SQL> SELECT SID, SNAME,BNAME,AUTHOR
+  2  FROM STUDENT2 S, LIBRARY1 L
+  3  WHERE S.BOOK_ID=L.BOOK_ID;
+
+       SID SNAME                BNAME                AUTHOR
+---------- -------------------- -------------------- --------------------
+         1 ANAND                SOM                  PRAFULL
+         2 JANARDHAN            MECHANICS            JANARDHAN
+         3 ANAND                M1                   SATYAM
+         4 SATYAM               DBMS                 ANAND
+         5 PRAFUL               M1                   SATYAM
+
+Q2. WAQTD STUDENT NAME, PERCENTAGE OF A STUDENT, BOOK_ID, BOOK NAME, AUTHOR OF A BOOK TAKEN FROM LIBRARY IF EDITION OF A BOOK IS 2022.
+
+SQL> SELECT SNAME, PER, L.BOOK_ID, BNAME, AUTHOR
+  2  FROM STUDENT2 S, LIBRARY1 L
+  3  WHERE S.BOOK_ID = L.BOOK_ID AND EDITION =2022;
+
+SNAME                       PER    BOOK_ID BNAME                AUTHOR
+-------------------- ---------- ---------- -------------------- --------------------
+ANAND                        35          1 M1                   SATYAM
+PRAFUL                       10          1 M1                   SATYAM
+
+Q3. WAQTD STUDENT ID, STUDENT NAME, BRANCH OF STUDENT, BNAME, AUTHOR, EDITION OF BOOK IF A PRICE ENDS WITH 0.
+
+SQL> SELECT SID, SNAME, BRANCH,BNAME,AUTHOR,EDITION
+  2  FROM STUDENT2 S, LIBRARY1 L
+  3  WHERE S.BOOK_ID = L.BOOK_ID AND PRICE LIKE '%0';
+
+       SID SNAME                BRANCH               BNAME                AUTHOR       EDITION
+ ----- ------------ -------------------- --------------------        -----------       ---------
+  
+         2 JANARDHAN            CS                   MECHANICS            JANARDHAN        2019
+      
+
+         3 ANAND                IT                   M1                   SATYAM           2022
+      
+
+         5 PRAFUL               CIVIL                M1                   SATYAM           2022
+      
+
+
+Q4. WAQTD DETAILS OF STUDENT, DETAILS OF LIBRARY IF STUDENT NAME STARTS WITH 'A' AND ENDS WITH 'N' AND EDITION OF BOOK IS 2022.
+
+SQL>  SELECT * FROM STUDENT2 S, LIBRARY1 L
+  2   WHERE S.BOOK_ID=L.BOOK_ID AND
+  3  SNAME LIKE 'A%N' AND EDITION = 2022;
+
+no rows selected
+
+
+******NATURAL JOIN*****
+
+-) IT BEHAVES AS INNER JOIN IF THERE IS A RELATION BETWWEN TWO TABLES ELSE IT BEHAVES AS A CROSS JOIN OR CARTIONS JOIN IF THERE IS NO RELATION BETWEEN TWO TABLES.
+
+-) SYNTAX: ANSI
+SELECT COLUMN_NAME1,COLUMN_NAME2....
+FROM TABLE_NAME1 NATURAL JOIN TABLE_NAME2;
+
+EMP
+ENAME DEPTNO
+ANAND  20
+AMAN   30
+RAJ    10
+____________
+
+DEPT
+DNAME      DEPTNO
+SALES       10
+ACOUNTING   20
+RESEARCH    30
+_________________
+
+RESULT
+(IT HAS RELATION)
+ENAME     DNAME      DEPTNO
+ANAND   ACCOUNTING    20
+AMAN    RESEARCH      30
+RAJ     SALES         10
+
+_________________________________
+________________________________
+
+CUSTOMER
+CID CNAME
+1   KUNAL
+2   JAY
+3   VIJAY
+___________________________
+
+PRODUCT
+PID  PNAME
+1    NIRMA
+2    SANTOOR
+3    PARLE-G
+
+________________________
+
+RESULT:
+(IT HAS NO RELATION)
+CID  CNAME  PID   PNAME
+1    KUNAL   1    NIRMA
+1    KUNAL   2   SANTOOR
+1    KUNAL   3   PARLE-G
+2    JAY     1   NIRAMA
+2    JAY     2   SANTOOR
+2    JAY     3   PARLE-G
+3    VIJAY   1    NIRAMA
+3    VIAJY   2   SANTOOR
+3    VIJAY   3   PARLE-G
+
+
+*****************************************************************
+**************************************************************
+
+********OUTER JOIN********
+IN NOTEBOOK
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

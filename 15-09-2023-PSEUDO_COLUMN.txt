@@ -1,0 +1,154 @@
+15-09-2023
+
+Q1. WAQTD DNAME IN WHICH EMP ARE NOT WORKING.
+
+SQL> SELECT DNAME FROM DEPT
+  2  WHERE DEPTNO NOT IN
+  3  (SELECT DEPTNO FROM EMP);
+
+DNAME
+--------------
+OPERATIONS
+
+Q.2 WAQTD DNAME IN WHICH EMP ARE WORKING.
+
+SQL> SELECT DNAME FROM DEPT
+  2  WHERE EXISTS(SELECT DEPTNO
+  3  FROM EMP
+  4  WHERE EMP.DEPTNO = DEPT.DEPTNO);
+
+DNAME
+--------------
+ACCOUNTING
+RESEARCH
+SALES
+
+Q3. WAQTD FIRST 5 ROWS OF EMP TABLE.
+
+SQL> SELECT * FROM EMP
+  2  WHERE ROWNUM <= 5;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30
+
+Q.4 WAQTD SECOND MAX SAL FROM EMP.
+
+SQL> SELECT SAL FROM
+  2  (SELECT ROWNUM R, SAL
+  3  FROM(SELECT DISTINCT SAL FROM EMP
+  4  ORDER BY SAL DESC))
+  5  WHERE R=2;
+
+       SAL
+----------
+      3000
+
+Q5. WAQTD 3RD, 2ND, 4TH AND 6TH MIN SAL OF EMP.
+
+SQL> SELECT SAL FROM
+  2  (SELECT ROWNUM SR, SAL FROM
+  3  (SELECT DISTINCT SAL FROM EMP
+  4  ORDER BY SAL ASC))
+  5  WHERE SR IN(3,2,4,6);
+
+       SAL
+----------
+       950
+      1100
+      1250
+      1500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

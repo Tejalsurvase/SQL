@@ -1,0 +1,491 @@
+SQL> set lines 100 pages 100
+SQL> select * from emp;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10
+
+14 rows selected.
+
+SQL> select ename, job from emp where job in('MANAGER','CLERK');
+
+ENAME      JOB
+---------- ---------
+SMITH      CLERK
+JONES      MANAGER
+BLAKE      MANAGER
+CLARK      MANAGER
+ADAMS      CLERK
+JAMES      CLERK
+MILLER     CLERK
+
+7 rows selected.
+
+SQL> SELECT ENAME, DEPTNO FROM EMP WHERE DEPTNO IN(10,20);
+
+ENAME          DEPTNO
+---------- ----------
+SMITH              20
+JONES              20
+CLARK              10
+SCOTT              20
+KING               10
+ADAMS              20
+FORD               20
+MILLER             10
+
+8 rows selected.
+
+SQL>  SELECT ENAME, DEPTNO FROM EMP WHERE DEPTNO IN(10,20), JOB IN('ANALYST','SALESMAN');
+ SELECT ENAME, DEPTNO FROM EMP WHERE DEPTNO IN(10,20), JOB IN('ANALYST','SALESMAN')
+                                                     *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL>  SELECT ENAME, DEPTNO FROM EMP WHERE DEPTNO IN(10,20) AND  JOB IN('ANALYST','SALESMAN');
+
+ENAME          DEPTNO
+---------- ----------
+SCOTT              20
+FORD               20
+
+SQL> SELECT ENAME, SAL FROM EMP WHERE DEPTNO IN(10,30) AND COMM IN(500,1400) AND SAL>2000;
+
+no rows selected
+
+SQL> SELECT ENAME, SAL FROM EMP WHERE DEPTNO IN(10,20) AND COMM IN(500,1400) AND SAL>2000;
+
+no rows selected
+
+SQL> SELECT ENAME, JOB FROM EMP WHERE JOB NOT IN('MANAGER','CLERK');
+
+ENAME      JOB
+---------- ---------
+ALLEN      SALESMAN
+WARD       SALESMAN
+MARTIN     SALESMAN
+SCOTT      ANALYST
+KING       PRESIDENT
+TURNER     SALESMAN
+FORD       ANALYST
+
+7 rows selected.
+
+SQL> SELECT ENAME, JOB FROM EMP WHERE JOB != 'MANAGER AND JOB != 'CLERK';
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL>  SELECT ENAME, JOB FROM EMP WHERE JOB != 'MANAGER'  AND JOB != 'CLERK';
+
+ENAME      JOB
+---------- ---------
+ALLEN      SALESMAN
+WARD       SALESMAN
+MARTIN     SALESMAN
+SCOTT      ANALYST
+KING       PRESIDENT
+TURNER     SALESMAN
+FORD       ANALYST
+
+7 rows selected.
+
+SQL> SELECT ENAME, JOB FROM EMP WHERE NOT(JOB = 'MANAGER' OR JOB = 'CLERK');
+
+ENAME      JOB
+---------- ---------
+ALLEN      SALESMAN
+WARD       SALESMAN
+MARTIN     SALESMAN
+SCOTT      ANALYST
+KING       PRESIDENT
+TURNER     SALESMAN
+FORD       ANALYST
+
+7 rows selected.
+
+SQL> SELECT ENAME FROM EMP WHERE DEPTNO NOT IN(20,30);
+
+ENAME
+----------
+CLARK
+KING
+MILLER
+
+SQL> SELECT ENAME FROM EMP WHERE HIREDATE IN('1-1-81','31-12-81');
+SELECT ENAME FROM EMP WHERE HIREDATE IN('1-1-81','31-12-81')
+                                        *
+ERROR at line 1:
+ORA-01843: not a valid month
+
+
+SQL> SELECT ENAME FROM EMP WHERE HIREDATE IN('1-JAN-81','31-DEC-81');
+
+no rows selected
+
+SQL>  SELECT ENAME FROM EMP WHERE HIREDATE BETWEEN ('1-JAN-81','31-DEC-81');;
+ SELECT ENAME FROM EMP WHERE HIREDATE BETWEEN ('1-JAN-81','31-DEC-81');
+                                                         *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL>  SELECT ENAME FROM EMP WHERE HIREDATE IN('1-JAN-81','31-DEC-81');
+
+no rows selected
+
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10
+
+14 rows selected.
+
+SQL>  SELECT ENAME FROM EMP WHERE HIREDATE BETWEEN ('1-JAN-81','31-DEC-81');
+ SELECT ENAME FROM EMP WHERE HIREDATE BETWEEN ('1-JAN-81','31-DEC-81')
+                                                         *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL>  SELECT ENAME FROM EMP WHERE HIREDATE BETWEEN ('1-JAN-81'AND '31-DEC-81');
+ SELECT ENAME FROM EMP WHERE HIREDATE BETWEEN ('1-JAN-81'AND '31-DEC-81')
+                                                         *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL>  SELECT ENAME FROM EMP WHERE HIREDATE>'1-JAN-81' AND HIREDATE<'31-DEC-81';
+
+ENAME
+----------
+ALLEN
+WARD
+JONES
+MARTIN
+BLAKE
+CLARK
+KING
+TURNER
+JAMES
+FORD
+
+10 rows selected.
+
+SQL>  SELECT ENAME FROM EMP WHERE HIREDATE BETWEEN ('1-JAN-81' AND '31-DEC-81');
+ SELECT ENAME FROM EMP WHERE HIREDATE BETWEEN ('1-JAN-81' AND '31-DEC-81')
+                                                          *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL>  SELECT ENAME FROM EMP WHERE HIREDATE BETWEEN'1-JAN-81' AND '31-DEC-81';
+
+ENAME
+----------
+ALLEN
+WARD
+JONES
+MARTIN
+BLAKE
+CLARK
+KING
+TURNER
+JAMES
+FORD
+
+10 rows selected.
+
+SQL> SELECT ENAME, SAL FROM EMP WHERE SAL BETWEEN 1000 AND 2000;
+
+ENAME             SAL
+---------- ----------
+ALLEN            1600
+WARD             1250
+MARTIN           1250
+TURNER           1500
+ADAMS            1100
+MILLER           1300
+
+6 rows selected.
+
+SQL>  SELECT ENAME, SAL FROM EMP WHERE SAL BETWEEN 2000 AND 3000;
+
+ENAME             SAL
+---------- ----------
+JONES            2975
+BLAKE            2850
+CLARK            2450
+SCOTT            3000
+FORD             3000
+
+SQL>  SELECT ENAME, SAL FROM EMP WHERE SAL BETWEEN 2000+1 AND 3000-1;
+
+ENAME             SAL
+---------- ----------
+JONES            2975
+BLAKE            2850
+CLARK            2450
+
+SQL> 
+SQL>  SELECT ENAME, SAL FROM EMP WHERE SAL BETWEEN 2001 AND 2999;
+
+ENAME             SAL
+---------- ----------
+JONES            2975
+BLAKE            2850
+CLARK            2450
+
+SQL> SELECT ENAME, HIREDATE FROM EMP WHERE HIREDATE BETWEEN '02-JAN-1981' AND '30-DEC-1981';
+
+ENAME      HIREDATE
+---------- ---------
+ALLEN      20-FEB-81
+WARD       22-FEB-81
+JONES      02-APR-81
+MARTIN     28-SEP-81
+BLAKE      01-MAY-81
+CLARK      09-JUN-81
+KING       17-NOV-81
+TURNER     08-SEP-81
+JAMES      03-DEC-81
+FORD       03-DEC-81
+
+10 rows selected.
+
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10
+
+14 rows selected.
+
+SQL> SELECT ENAME, HIREDATE FROM EMP WHERE HIREDATE BETWEEN '1-JAN-1982' AND '31-DEC-1986';
+
+ENAME      HIREDATE
+---------- ---------
+MILLER     23-JAN-82
+
+SQL>  SELECT ENAME, HIREDATE FROM EMP WHERE HIREDATE BETWEEN '1-JAN-198
+  2  
+SQL> 
+SQL>  SELECT ENAME, HIREDATE FROM EMP WHERE HIREDATE BETWEEN '1-JAN-198
+  2  1' AND '
+  3   SELECT ENAME, HIREDATE FROM EMP WHERE HIREDATE BETWEEN '1-JAN-198
+  4  
+SQL>  SELECT ENAME, HIREDATE FROM EMP WHERE HIREDATE BETWEEN '2-JAN-1981' AND '30-DEC-1987';
+
+ENAME      HIREDATE
+---------- ---------
+ALLEN      20-FEB-81
+WARD       22-FEB-81
+JONES      02-APR-81
+MARTIN     28-SEP-81
+BLAKE      01-MAY-81
+CLARK      09-JUN-81
+SCOTT      19-APR-87
+KING       17-NOV-81
+TURNER     08-SEP-81
+ADAMS      23-MAY-87
+JAMES      03-DEC-81
+FORD       03-DEC-81
+MILLER     23-JAN-82
+
+13 rows selected.
+
+SQL> SELECT ENAME, SAL FROM EMP WHERE SAL>= 800 AND SAL <= 1400;
+
+ENAME             SAL
+---------- ----------
+SMITH             800
+WARD             1250
+MARTIN           1250
+ADAMS            1100
+JAMES             950
+MILLER           1300
+
+6 rows selected.
+
+SQL> SELECT ENAME, SAL FROM EMP WHERE SAL BETWEEN 801 AND 1399;
+
+ENAME             SAL
+---------- ----------
+WARD             1250
+MARTIN           1250
+ADAMS            1100
+JAMES             950
+MILLER           1300
+
+SQL>  SELECT ENAME, SAL FROM EMP WHERE SAL BETWEEN 800 AND 1400;
+
+ENAME             SAL
+---------- ----------
+SMITH             800
+WARD             1250
+MARTIN           1250
+ADAMS            1100
+JAMES             950
+MILLER           1300
+
+6 rows selected.
+
+SQL> SELECT ENAME FROM EMP WHERE HIREDATE NOT BETWEEN '1-JAN-1981' AND '31-DEC-1981';
+
+ENAME
+----------
+SMITH
+SCOTT
+ADAMS
+MILLER
+
+SQL>  SELECT ENAME 
+  2  
+SQL> SELECT ENAME, HIREDATE FROM EMP WHERE HIREDATE NOT BETWEEN '1-JAN-1981' AND '31-DEC-1981';
+
+ENAME      HIREDATE
+---------- ---------
+SMITH      17-DEC-80
+SCOTT      19-APR-87
+ADAMS      23-MAY-87
+MILLER     23-JAN-82
+
+SQL> SELECT ENAME, SAL FROM EMP WHERE HIREDATE NOT BETWEEN '1-JAN-1980' AND '31-DEC-1984';
+
+ENAME             SAL
+---------- ----------
+SCOTT            3000
+ADAMS            1100
+
+SQL> 
+SQL> SELECT ENAME, SAL, HIREDATE FROM EMP WHERE HIREDATE NOT BETWEEN '1-JAN-1980' AND '31-DEC-1984';
+
+
+ENAME             SAL HIREDATE
+---------- ---------- ---------
+SCOTT            3000 19-APR-87
+ADAMS            1100 23-MAY-87
+
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10
+
+14 rows selected.
+
+SQL>  SELECT ENAME, SAL, HIREDATE FROM EMP WHERE HIREDATE NOT BETWEEN '1-JAN-1981'AND '31-DEC-198
+  2  3';
+ERROR:
+ORA-01830: date format picture ends before converting entire input string
+
+
+
+no rows selected
+
+SQL>  SELECT ENAME, SAL, HIREDATE FROM EMP WHERE HIREDATE NOT BETWEEN '1-JAN-1981' AND
+  2  '31-DEC-1983';
+
+ENAME             SAL HIREDATE
+---------- ---------- ---------
+SMITH             800 17-DEC-80
+SCOTT            3000 19-APR-87
+ADAMS            1100 23-MAY-87
+
+SQL> SELECT ENAME, HIREDATE FROM EMP WHERE HIREDATE NOT BETWEEN '2-JAN-1980' AND '30-DEC-1980';
+
+ENAME      HIREDATE
+---------- ---------
+ALLEN      20-FEB-81
+WARD       22-FEB-81
+JONES      02-APR-81
+MARTIN     28-SEP-81
+BLAKE      01-MAY-81
+CLARK      09-JUN-81
+SCOTT      19-APR-87
+KING       17-NOV-81
+TURNER     08-SEP-81
+ADAMS      23-MAY-87
+JAMES      03-DEC-81
+FORD       03-DEC-81
+MILLER     23-JAN-82
+
+13 rows selected.
+
+SQL> SELECT ENAME, SAL FROM EMP WHERE SAL NOT BETWEEN 2000, 5000;
+SELECT ENAME, SAL FROM EMP WHERE SAL NOT BETWEEN 2000, 5000
+                                                     *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL>  SELECT ENAME, SAL FROM EMP WHERE SAL NOT BETWEEN 2000 AND 5000;
+
+ENAME             SAL
+---------- ----------
+SMITH             800
+ALLEN            1600
+WARD             1250
+MARTIN           1250
+TURNER           1500
+ADAMS            1100
+JAMES             950
+MILLER           1300
+
+8 rows selected.
+
+SQL> 

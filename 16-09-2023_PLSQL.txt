@@ -1,0 +1,91 @@
+16-09-2023
+SQL> SET SERVEROUTPUT ON;
+SQL> DECLARE
+  2  T NUMBER(10):=10+20;
+  3  BEGIN
+  4  DBMS_OUTPUT.PUT_LINE(T);
+  5  END;
+  6  /
+30
+
+PL/SQL procedure successfully completed.
+
+SQL> SET SERVEROUTPUT ON;
+SQL> DECLARE
+  2  T VARCHAR(20):='TEJAL';
+  3  BEGIN
+  4  DBMS_OUTPUT.PUT_LINE(T);
+  5  END;
+  6  /
+TEJAL
+
+PL/SQL procedure successfully completed.
+
+SQL> SET SERVEROUTPUT ON;
+SQL> DECLARE
+  2  NUM1 NUMBER(10):=20;
+  3  NUM2 NUMBER(10):=10;
+  4  SUM VARCHAR(20);
+  5  BEGIN
+  6  SUM:=NUM1+NUM2;
+  7  
+  8  
+  9  
+ 10  
+ 11  DBMS_OUTPUT.PUT_LINE(SUM);
+ 12  END;
+ 13  /
+DBMS_OUTPUT.PUT_LINE(SUM);
+                        *
+ERROR at line 11:
+ORA-06550: line 11, column 25:
+PLS-00103: Encountered the symbol ")" when expecting one of the following:
+(
+
+
+SQL> SET SERVEROUTPUT ON;
+SQL> DECLARE
+  2  NUM1 NUMBER(10):=20;
+  3  NUM2 NUMBER(10):=10;
+  4  S NUMBER(20);
+  5  BEGIN
+  6  S := NUM1+NUM2;
+  7  DBMS_OUTPUT.PUT_LINE(S);
+  8  END;
+  9  /
+30
+
+PL/SQL procedure successfully completed.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  NUM1 NUMBER(10):=20;
+  3  NUM2 NUMBER(10):=10;
+  4  S NUMBER(20);
+  5  BEGIN
+  6  S := NUM1+NUM2;
+  7  DBMS_OUTPUT.PUT_LINE(S);
+  8* END;
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  NUM1 NUMBER(10):=&NUM1;
+  3  NUM2 NUMBER(10):=&NUM2;
+  4  S NUMBER(20);
+  5  BEGIN
+  6  S := NUM1+NUM2;
+  7  DBMS_OUTPUT.PUT_LINE(S);
+  8* END;
+SQL> /
+Enter value for num1: 13
+old   2: NUM1 NUMBER(10):=&NUM1;
+new   2: NUM1 NUMBER(10):=13;
+Enter value for num2: 12
+old   3: NUM2 NUMBER(10):=&NUM2;
+new   3: NUM2 NUMBER(10):=12;
+25
+
+PL/SQL procedure successfully completed.

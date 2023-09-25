@@ -1,0 +1,197 @@
+21-08-2-23
+
+group by clause:
+"group by clause is used to group the records".
+syntax : 
+select group by expression/group function from table_name
+[where <filter condition>]
+group by column_name/expression;
+
+ORDER OF EXECUTION:
+FROM
+[WHERE <ROW BY ROW>]
+GROUP BY <ROW BY ROW>
+SELECT <GROUP BY GROUP>
+
+
+Q1: WAQTD NUMBER OF EMPLOYEES WORKING IN EACH DEPTNO EXCEPT ANALYST.
+
+SQL> SELECT COUNT(*), DEPTNO FROM EMP WHERE JOB != 'ANALYST' GROUP BY DEPTNO;
+
+  COUNT(*)     DEPTNO
+---------- ----------
+         6         30
+         3         20
+         3         10
+
+Q2: WAQTD NUMBER OF EMPLOYEES WORKING IN EACH JOB.
+
+SQL> SELECT COUNT(*), JOB FROM EMP GROUP BY JOB;
+
+  COUNT(*) JOB
+---------- ---------
+         4 CLERK
+         4 SALESMAN
+         1 PRESIDENT
+         3 MANAGER
+         2 ANALYST
+
+Q3: WAQTD MAXIMUM SAL GIVEN TO EACH JOB.
+
+SQL> SELECT MAX(SAL), JOB FROM EMP GROUP BY JOB;
+
+  MAX(SAL) JOB
+---------- ---------
+      1300 CLERK
+      1600 SALESMAN
+      5000 PRESIDENT
+      2975 MANAGER
+      3000 ANALYST
+
+Q4: WAQTD NUMBER OF EMPLOYEES WORKING IN EACH DEPARTMENT IF EMPLOYEE NAME HAVING A CHARACTER 'A' IN THEIR NAME.
+
+SQL> SELECT COUNT(*), DEPTNO FROM EMP WHERE ENAME LIKE '%A%' GROUP BY DEPTNO;
+
+  COUNT(*)     DEPTNO
+---------- ----------
+         5         30
+         1         20
+         1         10
+
+Q5: WAQTD NUMBER OF TIMES SALARY PRESENT IN A EMP TABLE.
+
+SQL> SELECT COUNT(*), SAL FROM EMP GROUP BY SAL;
+
+  COUNT(*)        SAL
+---------- ----------
+         1       2450
+         1       5000
+         1       1300
+         2       1250
+         1       2850
+         1       2975
+         1       1100
+         2       3000
+         1        800
+         1       1600
+         1       1500
+         1        950
+
+Q6: WAQTD NUMBER OF EMPLOYEES HIRED ON SAME DAY AND WORKING IN SAME DEPARTMENT.
+
+SQL> SELECT COUNT(*), HIREDATE, DEPTNO FROM EMP GROUP BY HIREDATE, DEPTNO;
+
+  COUNT(*) HIREDATE      DEPTNO
+---------- --------- ----------
+         1 22-FEB-81         30
+         1 01-MAY-81         30
+         1 08-SEP-81         30
+         1 28-SEP-81         30
+         1 20-FEB-81         30
+         1 23-JAN-82         10
+         1 17-DEC-80         20
+         1 17-NOV-81         10
+         1 19-APR-87         20
+         1 23-MAY-87         20
+         1 03-DEC-81         20
+         1 02-APR-81         20
+         1 09-JUN-81         10
+         1 03-DEC-81         30
+
+Q7: WAQTD NUMBER OF EMPLOYEES GETTING SAME SALARY AND WORKING IN SAME DEPTNO.
+
+SQL> SELECT COUNT(*), SAL, DEPTNO FROM EMP GROUP BY SAL, DEPTNO;
+
+  COUNT(*)        SAL     DEPTNO
+---------- ---------- ----------
+         1       5000         10
+         1       1300         10
+         1       1600         30
+         2       1250         30
+         1       2450         10
+         2       3000         20
+         1        800         20
+         1       2850         30
+         1       1500         30
+         1       1100         20
+         1        950         30
+         1       2975         20
+
+
+CHARACTERISTICS OF GROUP BY CLAUSE:
+1) GROUP BY CLAUSE IS USED TO GROUP THE RECORDS.
+2) IT WILL EXECUTE ROW BY ROW.
+3) AFTER GROUP BY CLAUSE, WE GET THE GROUPS.
+4) AFTER GROUP BY CLAUSE, ANY CLAUSE WILL EXECUTE THAT MUST BE GROUP BY GROUP.
+5) THE COLUMN_NAME OR EXEPRESSION IS USED FOR GROUPING CAN BE PASSED IN SELECT CLAUSE.
+6) GROUP BY CLAUSE WILL EXECUTE WITHOUT WHERE CLAUSE.
+
+Q8: WAQTD NAME, SALARY, HIREDATE OF A EMPLOYEE WORKING IN EACH DEPATMENT.
+
+SQL> SELECT ENAME, SAL, HIREDATE, DEPTNO FROM EMP GROUP BY ENAME, SAL, HIREDATE, DEPTNO;
+
+ENAME             SAL HIREDATE      DEPTNO
+---------- ---------- --------- ----------
+MARTIN           1250 28-SEP-81         30
+CLARK            2450 09-JUN-81         10
+ALLEN            1600 20-FEB-81         30
+BLAKE            2850 01-MAY-81         30
+TURNER           1500 08-SEP-81         30
+MILLER           1300 23-JAN-82         10
+JONES            2975 02-APR-81         20
+SCOTT            3000 19-APR-87         20
+ADAMS            1100 23-MAY-87         20
+WARD             1250 22-FEB-81         30
+KING             5000 17-NOV-81         10
+JAMES             950 03-DEC-81         30
+FORD             3000 03-DEC-81         20
+SMITH             800 17-DEC-80         20
+
+14 rows selected.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

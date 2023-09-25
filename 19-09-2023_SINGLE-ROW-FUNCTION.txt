@@ -1,0 +1,325 @@
+19-09-2023_SINGLE-ROW-FUNCTION :-
+
+1) LENGTH():-
+
+SQL> SELECT LENGTH(ENAME) FROM EMP
+  2  WHERE ENAME = 'SMITH';
+
+LENGTH(ENAME)
+-------------
+           5
+-------------------------------------------------
+
+SQL> SELECT LENGTH('TEJAL')
+  2  FROM DUAL;
+
+LENGTH('TEJAL')
+---------------
+              5
+---------------------------------------------------------------------
+
+2)INITCAP():-
+
+SQL> SELECT INITCAP('TEJAL')
+  2  FROM DUAL;
+
+INITC
+-----
+Tejal
+----------------------------------------------------------------
+
+3)UPPER() :-
+
+SQL> SELECT UPPER('tejal')
+  2  FROM DUAL;
+
+UPPER
+-----
+TEJAL
+---------------------------------------------------------------------
+
+4)LOWER :-
+
+SQL> SELECT LOWER('TEJAL')
+  2  FROM DUAL;
+
+LOWER
+-----
+tejal
+-----------------------------------------------------------------------
+
+5)CONCAT():-
+
+SQL> SELECT CONCAT('TEJAL', 'SURVASE')
+  2  FROM DUAL;
+
+CONCAT('TEJA
+------------
+TEJALSURVASE
+----------------------------------------------------------------------
+
+6)REVERSE() :-
+
+Q1. WAQTD TO CHECK WHETHER ENAME IS PALLINDROM OR NOT.
+
+
+SQL> SELECT ENAME FROM EMP
+  2  WHERE ENAME = REVERSE(ENAME);
+
+no rows selected
+
+
+SQL> UPDATE EMP
+  2  SET ENAME='NITIN'
+  3  WHERE ENAME = 'SMITH';
+
+1 row updated.
+
+SQL> SELECT ENAME FROM EMP
+  2  WHERE ENAME = REVERSE(ENAME);
+
+ENAME
+----------
+NITIN
+
+--------------------------------------------------------------------------
+
+7)SUBSTRING():-
+
+Q2. WAQTD FIRST THREE CHARACTERS OF EMP NAME.
+
+SQL> SELECT SUBSTR(ENAME, 1, 3)
+  2  FROM EMP;
+
+SUB
+---
+SMI
+ALL
+WAR
+JON
+MAR
+BLA
+CLA
+SCO
+KIN
+TUR
+ADA
+JAM
+FOR
+MIL
+
+14 rows selected.
+
+--------------------------------------------------
+
+Q3. WAQTD LAST THREE CHARACTERS OF EMP NAME.
+
+SQL> SELECT SUBSTR(ENAME, -3)
+  2  FROM EMP;
+
+SUB
+---
+ITH
+LEN
+ARD
+NES
+TIN
+AKE
+ARK
+OTT
+ING
+NER
+AMS
+MES
+ORD
+LER
+
+14 rows selected.
+
+--------------------------------------------------------
+
+8)REPLACE():-
+
+SQL> SELECT REPLACE('TEJAL', 'T', 'S')
+  2  FROM DUAL;
+
+REPLA
+-----
+SEJAL
+
+-----------------------------------------------------
+
+SQL> SELECT REPLACE('TEJAL', 'T')
+  2  FROM DUAL;
+
+REPL
+----
+EJAL
+----------------------------------------------------
+
+9)MOD():-
+
+Q4. WAQTD EVEN NUMBER OF EMP NUMBER.
+
+SQL> SELECT ENAME, EMPNO
+  2  FROM EMP
+  3  WHERE MOD(EMPNO,2)=0;
+
+ENAME           EMPNO
+---------- ----------
+JONES            7566
+MARTIN           7654
+BLAKE            7698
+CLARK            7782
+SCOTT            7788
+TURNER           7844
+ADAMS            7876
+JAMES            7900
+FORD             7902
+MILLER           7934
+
+10 rows selected.
+
+-------------------------------------------------------
+
+Q5. WAQTD ODD NUMBER OF EMP NUMBER.
+
+SQL>  SELECT ENAME, EMPNO
+  2   FROM EMP
+  3   WHERE MOD(EMPNO,2)!=0;
+
+ENAME           EMPNO
+---------- ----------
+SMITH            7369
+ALLEN            7499
+WARD             7521
+KING             7839
+----------------------------------------------------------
+
+10)SYSDATE:-
+
+SQL> SELECT SYSDATE FROM DUAL;
+
+SYSDATE
+---------
+19-SEP-23
+-----------------------------------------------
+
+11)CURRENT_DATE:-
+
+SQL> SELECT CURRENT_DATE FROM DUAL;
+
+CURRENT_D
+---------
+19-SEP-23
+-------------------------------------------------
+
+12)SYSTIMESTAMP:-
+
+SQL> SELECT SYSTIMESTAMP FROM DUAL;
+
+SYSTIMESTAMP
+---------------------------------------------------------------------------
+19-SEP-23 10.58.45.899000 AM +05:30
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

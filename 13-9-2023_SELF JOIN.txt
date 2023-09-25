@@ -1,0 +1,346 @@
+13-9-2023
+Q WAQTD ENAME AND THE NAME OF EMP TO WHOM THEY ARE REPORTING.
+SQL> SELECT E.ENAME, M.ENAME MNAME
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO;
+
+ENAME      MNAME
+---------- ----------
+SMITH      FORD
+ALLEN      BLAKE
+WARD       BLAKE
+JONES      KING
+MARTIN     BLAKE
+BLAKE      KING
+CLARK      KING
+SCOTT      JONES
+TURNER     BLAKE
+ADAMS      SCOTT
+JAMES      BLAKE
+FORD       JONES
+MILLER     CLARK
+
+Q1. WAQTD ENAME AND NAME OF EMP WHO ARE REPORTING TO THEM.
+SQL> SELECT E.ENAME, M.ENAME
+  2  FROM EMP E, EMP M
+  3  WHERE E.EMPNO = M.MGR;
+
+MNAME      ENAME
+---------- ----------
+FORD       SMITH
+BLAKE      ALLEN
+BLAKE      WARD
+KING       JONES
+BLAKE      MARTIN
+KING       BLAKE
+KING       CLARK
+JONES      SCOTT
+BLAKE      TURNER
+SCOTT      ADAMS
+BLAKE      JAMES
+JONES      FORD
+CLARK      MILLER
+
+Q2. WAQTD ENAME, SAL, MNAME, MANAGERS SAL OF EMP.
+
+SQL> SELECT E.ENAME,E.SAL ESAL, M.ENAME MNAME, M.SAL MSAL
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO;
+
+ENAME            ESAL MNAME            MSAL
+---------- ---------- ---------- ----------
+SMITH             800 FORD             3000
+ALLEN            1600 BLAKE            2850
+WARD             1250 BLAKE            2850
+JONES            2975 KING             5000
+MARTIN           1250 BLAKE            2850
+BLAKE            2850 KING             5000
+CLARK            2450 KING             5000
+SCOTT            3000 JONES            2975
+TURNER           1500 BLAKE            2850
+ADAMS            1100 SCOTT            3000
+JAMES             950 BLAKE            2850
+FORD             3000 JONES            2975
+MILLER           1300 CLARK            2450
+
+Q3. WAQTD ENAME, JOB, MNAME AND MJOB OF EMP.
+
+SQL> SELECT E.ENAME, E.JOB EJOB, M.ENAME MNAME, M.JOB MJOB
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO;
+
+ENAME      EJOB      MNAME      MJOB
+---------- --------- ---------- ---------
+SMITH      CLERK     FORD       ANALYST
+ALLEN      SALESMAN  BLAKE      MANAGER
+WARD       SALESMAN  BLAKE      MANAGER
+JONES      MANAGER   KING       PRESIDENT
+MARTIN     SALESMAN  BLAKE      MANAGER
+BLAKE      MANAGER   KING       PRESIDENT
+CLARK      MANAGER   KING       PRESIDENT
+SCOTT      ANALYST   JONES      MANAGER
+TURNER     SALESMAN  BLAKE      MANAGER
+ADAMS      CLERK     SCOTT      ANALYST
+JAMES      CLERK     BLAKE      MANAGER
+FORD       ANALYST   JONES      MANAGER
+MILLER     CLERK     CLARK      MANAGER
+
+13 rows selected.
+
+Q.4 WAQTD ENAME, COMM, MNAME, MCOMM OF EMP.
+
+SQL> SELECT E.ENAME, E.COMM ECOMM, M.ENAME MNAME, M.COMM MCOMM
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO;
+
+ENAME           ECOMM MNAME           MCOMM
+---------- ---------- ---------- ----------
+SMITH                 FORD
+ALLEN             300 BLAKE
+WARD              500 BLAKE
+JONES                 KING
+MARTIN           1400 BLAKE
+BLAKE                 KING
+CLARK                 KING
+SCOTT                 JONES
+TURNER              0 BLAKE
+ADAMS                 SCOTT
+JAMES                 BLAKE
+FORD                  JONES
+MILLER                CLARK
+
+13 rows selected.
+
+Q5. WAQTD ENAME, ESAL, MNAME, MSAL IF EMP GETTING SAL MORE THAN 3000.
+
+SQL> SELECT E.ENAME, E.SAL ESAL, M.ENAME MNAME, M.SAL MSAL
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO AND E.SAL > 3000;
+
+no rows selected
+
+Q6. WAQTD ENAME, EJOB, MNAME, MJOB OF EMP IF MANAGER IS WORKING AS A ANALYST.
+
+SQL> SELECT E.ENAME, E.JOB EJOB, M.ENAME MNAME, M.JOB MJOB
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO AND M.JOB = 'ANALYST';
+
+ENAME      EJOB      MNAME      MJOB
+---------- --------- ---------- ---------
+SMITH      CLERK     FORD       ANALYST
+ADAMS      CLERK     SCOTT      ANALYST
+
+Q7. WAQTD ENAME, EHIREDATE, MNAME, MHIREDATE IF EMP IS HIRED BEFORE THE MANAGER.
+
+SQL> SELECT E.ENAME, E.HIREDATE EHIREDATE, M.ENAME MNAME, M.HIREDATE MHIREDATE
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO AND E.HIREDATE < M.HIREDATE;
+
+ENAME      EHIREDATE MNAME      MHIREDATE
+---------- --------- ---------- ---------
+SMITH      17-DEC-80 FORD       03-DEC-81
+ALLEN      20-FEB-81 BLAKE      01-MAY-81
+WARD       22-FEB-81 BLAKE      01-MAY-81
+JONES      02-APR-81 KING       17-NOV-81
+BLAKE      01-MAY-81 KING       17-NOV-81
+CLARK      09-JUN-81 KING       17-NOV-81
+
+6 rows selected.
+
+Q8. WAQTD ENAME, EDEPTNO, MNAME, MDEPTNO IF EMP AND MANAGER WORKING IN SAME DEPTNO.
+
+SQL> SELECT E.ENAME, E.DEPTNO EDEPTNO, M.ENAME MNAME, M.DEPTNO MDEPTNO
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR=M.EMPNO AND E.DEPTNO = M.DEPTNO;
+
+ENAME         EDEPTNO MNAME         MDEPTNO
+---------- ---------- ---------- ----------
+SMITH              20 FORD               20
+ALLEN              30 BLAKE              30
+WARD               30 BLAKE              30
+MARTIN             30 BLAKE              30
+CLARK              10 KING               10
+SCOTT              20 JONES              20
+TURNER             30 BLAKE              30
+ADAMS              20 SCOTT              20
+JAMES              30 BLAKE              30
+FORD               20 JONES              20
+MILLER             10 CLARK              10
+
+11 rows selected.
+
+Q9. WAQTD ENAME, ESAL, MNAME, MSAL, MANAGRES MANAGRE NAME AND MANAGERS MANAGER SAL OF EMP.
+
+SQL> SELECT E.ENAME, E.SAL ESAL, M.ENAME MNAME, M.SAL MSAL, MM.ENAME MMNAME, MM.SAL MMSAL
+  2  FROM EMP E, EMP M, EMP MM
+  3  WHERE E.MGR=M.EMPNO AND M.MGR = MM.EMPNO;
+
+ENAME            ESAL MNAME            MSAL MMNAME          MMSAL
+---------- ---------- ---------- ---------- ---------- ----------
+SMITH             800 FORD             3000 JONES            2975
+ALLEN            1600 BLAKE            2850 KING             5000
+WARD             1250 BLAKE            2850 KING             5000
+MARTIN           1250 BLAKE            2850 KING             5000
+SCOTT            3000 JONES            2975 KING             5000
+TURNER           1500 BLAKE            2850 KING             5000
+ADAMS            1100 SCOTT            3000 JONES            2975
+JAMES             950 BLAKE            2850 KING             5000
+FORD             3000 JONES            2975 KING             5000
+MILLER           1300 CLARK            2450 KING             5000
+
+10 rows selected.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
